@@ -4,7 +4,7 @@ import numpy as np
 from utils.metrics import clustering_score
 from sklearn.metrics import confusion_matrix
 from keras.models import Model
-from keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD
 from tqdm import trange
 
 def target_distribution(q):

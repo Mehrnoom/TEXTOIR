@@ -11,7 +11,7 @@ class Param():
             max_num_words (int): The maximum number of words.
         """
         hyper_parameters = {
-            'glove_model': '/home/sharing/disk1/pretrained_embedding/glove',
+            'glove_model': '/Users/mehrnoom/GICRM/pretrained_embeddings/glove/',
             'max_num_words': 10000, 
         }
 
