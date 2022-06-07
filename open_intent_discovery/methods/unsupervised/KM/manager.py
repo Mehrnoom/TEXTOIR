@@ -20,18 +20,18 @@ class KMManager:
         self.logger.info('K-Means start...')
         from sklearn.cluster import KMeans
         km = KMeans(n_clusters=self.num_labels, n_jobs=-1, random_state = args.seed)
-        km.fit(self.emb_train)
+        y_pred = km.fit_predict(self.emb_train)
         self.logger.info('K-Means finished...')
 
-        y_pred = km.predict(self.emb_test)
+        # y_pred = km.predict(self.emb_test)
         y_true = self.test_y
-        test_results = clustering_score(y_true, y_pred)
-        cm = confusion_matrix(y_true, y_pred)
+        test_results = clustering_score(y_true, y_pred, embeddings=self.emb_train, supervised_eval=False)
+        # cm = confusion_matrix(y_true, y_pred)
 
         if show:
             self.logger.info
-            self.logger.info("***** Test: Confusion Matrix *****")
-            self.logger.info("%s", str(cm))
+            # self.logger.info("***** Test: Confusion Matrix *****")
+            # self.logger.info("%s", str(cm))
             self.logger.info("***** Test results *****")
             
             for key in sorted(test_results.keys()):

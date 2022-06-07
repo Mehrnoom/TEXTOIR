@@ -8,6 +8,8 @@ class AGManager:
         
         self.logger = logging.getLogger(logger_name)
         self.emb_train, self.emb_test = model.emb_train, model.emb_test
+        # import IPython;
+        # IPython.embed()
         self.num_labels = data.num_labels
         self.test_y = data.dataloader.test_true_labels
 
@@ -20,17 +22,17 @@ class AGManager:
         self.logger.info('Agglomerative Clustering start...')
         from sklearn.cluster import AgglomerativeClustering
         ag = AgglomerativeClustering(n_clusters = self.num_labels)
-        ag.fit(self.emb_train)
+        # ag.fit(self.emb_train)
 
-        y_pred = ag.fit_predict(self.emb_test)
+        y_pred = ag.fit_predict(self.emb_train)
         y_true = self.test_y
-        test_results = clustering_score(y_true, y_pred)
-        cm = confusion_matrix(y_true,y_pred) 
+        test_results = clustering_score(y_true, y_pred, embeddings=self.emb_train, supervised_eval=False)
+        # cm = confusion_matrix(y_true,y_pred)
 
         if show:
             self.logger.info
-            self.logger.info("***** Test: Confusion Matrix *****")
-            self.logger.info("%s", str(cm))
+            # self.logger.info("***** Test: Confusion Matrix *****")
+            # self.logger.info("%s", str(cm))
             self.logger.info("***** Test results *****")
             
             for key in sorted(test_results.keys()):

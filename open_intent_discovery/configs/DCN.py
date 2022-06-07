@@ -27,7 +27,7 @@ class Param():
             'lr': 0.001,
             'momentum': 0.9,
             'tol': 0.01,
-            'model_name': 'DCN.h5'
+            'model_name': 'DCN.h5',
         }
 
         return hyper_parameters

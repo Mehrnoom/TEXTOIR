@@ -17,7 +17,7 @@ class DECManager:
         
         self.logger = logging.getLogger(logger_name)
         self.sae = model.sae
-        self.sae_feats_path = os.path.join(args.task_output_dir, args.SAE_feats_path)
+        self.sae_feats_path = args.model_output_dir.replace(args.method, 'SAE') + '/SAE.h5'
         
         self.tfidf_train, self.tfidf_test = data.dataloader.tfidf_train, data.dataloader.tfidf_test
         self.num_labels = data.num_labels
@@ -108,18 +108,20 @@ class DECManager:
 
 
     def test(self, args, data, show=False):
+        from backbones.sae import get_sae, ClusteringLayer
+        sae_emb_train, sae_emb_test = get_sae(args, self.sae, self.tfidf_train, self.tfidf_test)
 
-        q = self.model.predict(self.tfidf_test, verbose = 0)
+        q = self.model.predict(self.tfidf_train, verbose = 0)
         y_pred = q.argmax(1)
         y_true = self.test_y
 
-        test_results = clustering_score(y_true, y_pred)
-        cm = confusion_matrix(y_true,y_pred) 
+        test_results = clustering_score(y_true, y_pred, embeddings=sae_emb_train, supervised_eval=False)
+        # cm = confusion_matrix(y_true,y_pred)
         
         if show:
             self.logger.info
-            self.logger.info("***** Test: Confusion Matrix *****")
-            self.logger.info("%s", str(cm))
+            # self.logger.info("***** Test: Confusion Matrix *****")
+            # self.logger.info("%s", str(cm))
             self.logger.info("***** Test results *****")
             
             for key in sorted(test_results.keys()):

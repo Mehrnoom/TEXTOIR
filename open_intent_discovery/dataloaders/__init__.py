@@ -5,6 +5,7 @@ max_seq_lengths = {
                         'clinc':30, 
                         'banking':55, 
                         'snips': 35,
+                        'pocketgem_topics': 55
                     }
                     
 backbone_loader_map = {
@@ -74,5 +75,7 @@ benchmark_labels = {
                 [
                     "AddToPlaylist", "BookRestaurant", "GetWeather", "PlayMusic", "RateBook", 
                     "SearchCreativeWork", "SearchScreeningEvent"
-                ]
+                ],
+
+    'pocketgem_topics' : list(range(21))
 }

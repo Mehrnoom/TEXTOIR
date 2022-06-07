@@ -1,0 +1,19 @@
+#!/usr/bin bash
+
+for dataset in 'pocketgem_topics'
+do
+    for seed in 0
+    do
+        python run.py \
+        --dataset $dataset \
+        --method 'KM' \
+        --setting 'unsupervised' \
+        --seed $seed \
+        --backbone 'glove' \
+        --config_file_name 'KM' \
+        --gpu_id '0' \
+        --train \
+        --save_results \
+        --results_file_name 'results_KM.csv'
+    done
+done

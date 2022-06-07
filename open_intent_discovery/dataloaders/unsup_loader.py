@@ -28,17 +28,19 @@ class UNSUP_Loader:
     def get_examples(self, base_attrs):
         
         train_csv = pd.read_csv(os.path.join(base_attrs['data_dir'],'train.tsv'), sep = '\t')
-        dev_csv = pd.read_csv(os.path.join(base_attrs['data_dir'],'dev.tsv'), sep = '\t')
+        # dev_csv = pd.read_csv(os.path.join(base_attrs['data_dir'],'dev.tsv'), sep = '\t')
         test_csv = pd.read_csv(os.path.join(base_attrs['data_dir'],'test.tsv'), sep = '\t')
+        # import IPython
+        # IPython.embed()
 
         train_data_list = [[x, y] for x, y in zip(train_csv['text'], train_csv['label'])]
-        dev_data_list = [[x, y] for x, y in zip(dev_csv['text'], dev_csv['label'])]
+        # dev_data_list = [[x, y] for x, y in zip(dev_csv['text'], dev_csv['label'])]
         test_data_list = [[x, y] for x, y in zip(test_csv['text'], test_csv['label'])]
 
-        all_data_list = train_data_list + dev_data_list + test_data_list
+        all_data_list = train_data_list #+ test_data_list + dev_data_list
         all_data_frame = pd.DataFrame(all_data_list, columns = ['text', 'label'])
 
-        train_data_list = train_data_list + dev_data_list
+        train_data_list = train_data_list # + dev_data_list
         train_data_frame = pd.DataFrame(train_data_list, columns = ['text', 'label'])
         test_data_frame = pd.DataFrame(test_data_list, columns = ['text', 'label'])
 
